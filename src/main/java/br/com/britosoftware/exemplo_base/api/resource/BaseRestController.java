@@ -2,9 +2,9 @@ package br.com.britosoftware.exemplo_base.api.resource;
 
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+
+
 public class BaseRestController {
 
     protected <R>ResponseEntity buildResponse(RestFunctionNoArgs<R> f){
