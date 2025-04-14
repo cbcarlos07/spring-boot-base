@@ -39,4 +39,10 @@ public class UserService {
         assert user != null;
         return repository.save( user );
     }
+
+    public void delete(Integer id){
+        User user =  repository.findById( id ).orElse(null);
+        assert user != null;
+        repository.delete( user );
+    }
 }
