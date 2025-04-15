@@ -2,13 +2,16 @@
 package br.com.britosoftware.exemplo_base.core.service;
 
 import br.com.britosoftware.exemplo_base.core.commom.Util;
+import br.com.britosoftware.exemplo_base.core.commom.exception.ExemploRuntimeException;
 import br.com.britosoftware.exemplo_base.core.dto.UserDTO;
 import br.com.britosoftware.exemplo_base.core.persistence.models.User;
 import br.com.britosoftware.exemplo_base.core.persistence.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -44,5 +47,21 @@ public class UserService {
         User user =  repository.findById( id ).orElse(null);
         assert user != null;
         repository.delete( user );
+    }
+
+    public void tratarCampo(UserDTO data){
+        List<String> fields = new ArrayList<>();
+        if( Util.isNullOrEmpty( data.getUsername() ) ){
+            fields.add( "username" );
+        }
+
+        if( Util.isNullOrEmpty( data.getPassword() ) ){
+            fields.add( "password" );
+        }
+
+        if( Util.isNotNullOrEmpty( fields ) ){
+            throw new ExemploRuntimeException("erro.parametros.obrigatorios", String.join(",", fields));
+        }
+
     }
 }

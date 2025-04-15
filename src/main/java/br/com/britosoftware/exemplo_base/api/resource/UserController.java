@@ -28,4 +28,14 @@ public class UserController extends BaseRestController{
         return buildResponse(() -> service.update(id, dto));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable("id") Integer id){
+        return buildResponse(() -> service.delete( id ));
+    }
+
+    @PatchMapping("/tratar")
+    public ResponseEntity tratarCampos(@RequestBody UserDTO dto){
+        return buildResponse(() -> service.tratarCampo(dto) );
+    }
+
 }
